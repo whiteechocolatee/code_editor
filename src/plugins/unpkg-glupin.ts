@@ -52,8 +52,6 @@ export const unpkgPathPlugin = () => {
       // callback function is an async function that takes an `args` object as its argument.
 
       build.onLoad({ filter: /.*/ }, async (args: any) => {
-        console.log('onLoad', args);
-
         if (args.path === 'index.js') {
           return {
             loader: 'jsx',
@@ -64,9 +62,10 @@ export const unpkgPathPlugin = () => {
           };
         }
 
-        const cachedResult = await fileCache.getItem(
-          args.path,
-        );
+        const cachedResult =
+          await fileCache.getItem<esbuild.OnLoadResult>(
+            args.path,
+          );
 
         if (cachedResult) {
           return cachedResult;
@@ -76,7 +75,7 @@ export const unpkgPathPlugin = () => {
           args.path,
         );
 
-        const result = {
+        const result: esbuild.OnLoadResult = {
           loader: 'jsx',
           contents: data,
           resolveDir: new URL('./', request.responseURL)
