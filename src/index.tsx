@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import * as esbuild from 'esbuild-wasm';
 import { useEffect, useState, useRef } from 'react';
-import { unpkgPathPlugin } from './plugins/unpkg-glupin';
+import { unpkgPathPlugin } from './plugins/unpkg-plugin';
 
 const App = () => {
   const ref = useRef<any>();
